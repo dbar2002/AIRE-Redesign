@@ -41,9 +41,9 @@ get_header();
 </section>
 
 <!-- ===== TWO-BOX ===== -->
-<section class="two-box">
+<section class="two-box" data-reveal>
 	<div class="container">
-		<div class="two-box-grid">
+		<div class="two-box-grid" data-reveal-stagger>
 			<div class="box box-blue">
 				<div>
 					<div class="box-eyebrow on-dark">Now enrolling</div>
@@ -65,7 +65,7 @@ get_header();
 </section>
 
 <!-- ===== CHOOSE A CAREER PATH ===== -->
-<section class="careers" id="programs">
+<section class="careers" id="programs" data-reveal>
 	<div class="container">
 		<div class="section-head-center">
 			<div class="section-eyebrow">Choose a career path</div>
@@ -73,7 +73,7 @@ get_header();
 			<p class="section-lede">Four certificate programs covering the foundations of AI, robotics, and electrification. Online, project-based, and built around a capstone you can show employers.</p>
 		</div>
 
-		<div class="career-grid">
+		<div class="career-grid" data-reveal-stagger>
 			<?php
 			$programs = new WP_Query( array(
 				'post_type'      => 'aire_program',
@@ -122,14 +122,14 @@ get_header();
 </section>
 
 <!-- ===== GOVERNMENT PARTNERSHIP ===== -->
-<section class="gov" id="government">
+<section class="gov" id="government" data-reveal>
 	<div class="container">
 		<div class="section-head-center">
 			<div class="section-eyebrow">Government partnership</div>
 			<h2 class="section-h2">Aligned with federal priorities.</h2>
 			<p class="section-lede">Our curriculum addresses workforce needs identified by federal agencies in clean energy, autonomous transportation, and artificial intelligence.</p>
 		</div>
-		<div class="gov-grid">
+		<div class="gov-grid" data-reveal-stagger>
 			<div class="gov-card">
 				<div class="gov-icon blue">
 					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-6h6v6"/></svg>
@@ -157,13 +157,13 @@ get_header();
 </section>
 
 <!-- ===== BEFORE YOU APPLY ===== -->
-<section class="disclosures">
+<section class="disclosures" data-reveal>
 	<div class="container">
 		<div class="section-head-center">
 			<div class="section-eyebrow">Before you apply</div>
 			<h2 class="section-h2" style="font-size: 28px;">Important to know.</h2>
 		</div>
-		<div class="disclose-grid">
+		<div class="disclose-grid" data-reveal-stagger>
 			<?php foreach ( aire_get_disclosures() as $d ) : ?>
 				<div class="disclose-card">
 					<div class="disclose-title"><?php echo esc_html( $d['title'] ); ?></div>
@@ -175,7 +175,7 @@ get_header();
 </section>
 
 <!-- ===== NEWSLETTER ===== -->
-<section class="newsletter" id="newsletter">
+<section class="newsletter" id="newsletter" data-reveal>
 	<div class="container newsletter-inner">
 		<h2 class="newsletter-h">Want special offers and course updates?</h2>
 		<p class="newsletter-sub">Get notified about new cohorts, programs, and admissions windows.</p>

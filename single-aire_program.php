@@ -50,8 +50,15 @@ while ( have_posts() ) :
 				<div class="sidebar-eyebrow">Next cohort</div>
 				<div class="sidebar-date">January 15, 2026</div>
 				<div class="sidebar-note">First cohort — applications accepted year-round</div>
-				<a href="<?php echo esc_url( home_url( '/apply/' ) ); ?>" class="btn btn-primary btn-block">Start application &rarr;</a>
-				<a href="<?php echo esc_url( home_url( '/admissions/' ) ); ?>" class="btn btn-outline-dark btn-block">Read admissions</a>
+				<button
+					type="button"
+					class="btn btn-primary btn-block"
+					data-add-to-cart
+					data-id="<?php echo esc_attr( get_post_field( 'post_name', get_the_ID() ) ); ?>"
+					data-title="<?php echo esc_attr( get_the_title() ); ?>"
+					data-price="<?php echo esc_attr( (int) $tuition ); ?>"
+				>Add to cart &mdash; <?php echo esc_html( aire_format_tuition( $tuition ) ); ?></button>
+				<a href="<?php echo esc_url( home_url( '/apply/' ) ); ?>" class="btn btn-outline-dark btn-block">Start application &rarr;</a>
 				<div class="sidebar-fineprint">
 					Tuition: <?php echo esc_html( aire_format_tuition( $tuition ) ); ?><br />
 					Interest-free monthly payment plans available<br />

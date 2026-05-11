@@ -16,7 +16,7 @@ get_header();
 $catalog_rev      = 'Rev. 1/2026';
 $catalog_period   = 'January 1, 2026 – December 31, 2026';
 $catalog_address  = '1275 El Camino Real, Menlo Park, CA 94025-4284';
-$catalog_phone    = '(323) 413-8128';
+$catalog_phone    = '(909) 833-0666';
 ?>
 
 <!-- Breadcrumb -->

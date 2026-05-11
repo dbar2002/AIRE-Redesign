@@ -54,6 +54,22 @@ function aire_enqueue_assets() {
 		array(),
 		AIRE_VERSION
 	);
+
+	wp_enqueue_script(
+		'aire-cart',
+		AIRE_URI . '/assets/js/cart.js',
+		array(),
+		AIRE_VERSION,
+		true
+	);
+
+	wp_enqueue_script(
+		'aire-animations',
+		AIRE_URI . '/assets/js/animations.js',
+		array(),
+		AIRE_VERSION,
+		true
+	);
 }
 add_action( 'wp_enqueue_scripts', 'aire_enqueue_assets' );
 

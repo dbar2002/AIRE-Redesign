@@ -60,7 +60,7 @@
 				} else {
 					echo '<ul>';
 					echo '<li><a href="' . esc_url( home_url( '/programs/' ) ) . '">Course list</a></li>';
-					echo '<li><a href="#">Catalog</a></li>';
+					echo '<li><a href="' . esc_url( home_url( '/catalog/' ) ) . '">Catalog</a></li>';
 					echo '<li><a href="' . esc_url( home_url( '/admissions/' ) ) . '">Admissions</a></li>';
 					echo '<li><a href="' . esc_url( home_url( '/faculty/' ) ) . '">Faculty</a></li>';
 					echo '</ul>';

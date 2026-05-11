@@ -49,7 +49,7 @@
 					<circle cx="9" cy="21" r="1"/>
 					<circle cx="20" cy="21" r="1"/>
 				</svg>
-				(0)
+				<span class="cart-count">(<span data-cart-count>0</span>)</span>
 			</a>
 			<a href="<?php echo esc_url( home_url( '/apply/' ) ); ?>" class="btn btn-primary btn-sm">Get started</a>
 		</div>
