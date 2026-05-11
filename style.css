@@ -1,0 +1,16 @@
+/*
+Theme Name: AIRE
+Theme URI: https://airobotoedu.com
+Author: AI Roboto Edu
+Description: Custom theme for AI Roboto Edu — a BPPE-approved online certificate school. Hand-built, no page builder dependency.
+Version: 1.0.0
+Requires at least: 6.0
+Requires PHP: 7.4
+License: Proprietary
+Text Domain: aire
+*/
+
+/* ==========================================================================
+   This file is the WordPress-required theme stylesheet header. The actual
+   styles live in /assets/css/main.css, loaded by functions.php.
+   ========================================================================== */
