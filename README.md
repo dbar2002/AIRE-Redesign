@@ -14,6 +14,8 @@ The theme includes:
 - **Programs archive** (`/programs/`) listing all certificate programs
 - **Single program template** with sidebar, tuition, and module breakdown
 - **Course Catalog** — full BPPE-compliant catalog page with sticky TOC, tuition tables, faculty, and required disclosures
+- **Cart & Checkout** — client-side fake cart (localStorage) with add-to-cart from program pages, cart page with quantity controls, and a demo checkout form. Not connected to a real payment gateway.
+- **Site-wide animations** — hero entrance fade-up, scroll-triggered section reveals via Intersection Observer, hover polish on cards/buttons/pills, gentle hero shield float. Respects `prefers-reduced-motion`.
 - **Generic page template** for things like Admissions, About, Privacy Policy
 
 ## Requirements
@@ -43,9 +45,11 @@ See [`SEED_DATA.md`](./SEED_DATA.md) for the program data, page slugs, meta fiel
 At minimum, you'll want to:
 
 1. Create a **Course Catalog** page in WP Admin (slug: `catalog`, template: "Course Catalog")
-2. Set **Settings → Reading → Front page** to a static page
-3. Create one **Program** post per certificate (Advanced Robotics, Autonomous Driving, Electric Vehicle, ML & AI) with the meta fields from `SEED_DATA.md`
-4. Set permalinks to **Post name** under **Settings → Permalinks**
+2. Create a **Cart** page (slug: `cart`, template: "Cart")
+3. Create a **Checkout** page (slug: `checkout`, template: "Checkout")
+4. Set **Settings → Reading → Front page** to a static page
+5. Create one **Program** post per certificate (Advanced Robotics, Autonomous Driving, Electric Vehicle, ML & AI) with the meta fields from `SEED_DATA.md`
+6. Set permalinks to **Post name** under **Settings → Permalinks**
 
 ## File structure
 
@@ -58,6 +62,8 @@ aire-redesign/
 ├── front-page.php                  Homepage
 ├── page.php                        Generic page template
 ├── page-catalog.php                Course Catalog template (BPPE disclosure page)
+├── page-cart.php                   Cart page template
+├── page-checkout.php               Checkout page template (demo, no payment)
 ├── single-aire_program.php         Single program (e.g. /programs/electric-vehicle/)
 ├── archive-aire_program.php        /programs/ listing
 ├── index.php                       Required fallback
@@ -65,7 +71,10 @@ aire-redesign/
 │   ├── post-types.php              "Program" custom post type + admin meta box
 │   └── template-tags.php           Helpers (shield logo, faculty list, formatters)
 └── assets/
-    └── css/main.css                All site styling
+    ├── css/main.css                All site styling
+    └── js/
+        ├── cart.js                 localStorage cart logic
+        └── animations.js           Intersection Observer scroll reveals
 ```
 
 ## Design tokens
@@ -97,6 +106,12 @@ code assets/css/main.css
 ```
 
 For local development, [Local by Flywheel](https://localwp.com/) is the easiest way to run WordPress on macOS without configuring Apache/MySQL by hand.
+
+## Roadmap
+
+- **WooCommerce integration** — The current cart and checkout are client-side only (localStorage). The live AI Roboto Edu site uses WooCommerce for real transactions, so a future iteration will swap the fake cart for WooCommerce-managed products, cart, checkout, and payment gateways.
+- **Mobile nav** — The primary nav currently hides on screens under 768px; a hamburger menu is planned.
+- **Real apply/enrollment flow** — Today the Get Started and Apply buttons point to a stub `/apply/` URL. Hook this up to whichever form provider AIRE uses (Gravity Forms, Formidable, etc.).
 
 ## License
 
