@@ -34,10 +34,83 @@
 					) );
 				} else {
 					// Fallback nav if no menu has been assigned in wp-admin yet.
-					echo '<ul class="nav-list">';
-					echo '<li><a href="' . esc_url( home_url( '/programs/' ) ) . '">Course List</a></li>';
-					echo '<li><a href="' . esc_url( home_url( '/catalog/' ) ) . '">Catalog</a></li>';
-					echo '</ul>';
+					// Build sorted programs list for the Course List dropdown.
+					$nav_programs = get_posts( array(
+						'post_type'      => 'aire_program',
+						'posts_per_page' => -1,
+						'orderby'        => 'title',
+						'order'          => 'ASC',
+					) );
+					usort( $nav_programs, function( $a, $b ) {
+						$status_a = get_post_meta( $a->ID, '_aire_status', true ) ?: 'enrolling';
+						$status_b = get_post_meta( $b->ID, '_aire_status', true ) ?: 'enrolling';
+						$coming_a = ( 'coming_soon' === $status_a ) ? 1 : 0;
+						$coming_b = ( 'coming_soon' === $status_b ) ? 1 : 0;
+						if ( $coming_a !== $coming_b ) {
+							return $coming_a - $coming_b;
+						}
+						return strcasecmp( $a->post_title, $b->post_title );
+					} );
+					?>
+					<ul class="nav-list">
+						<li class="nav-has-dropdown">
+							<a
+								href="<?php echo esc_url( home_url( '/programs/' ) ); ?>"
+								class="nav-dropdown-trigger"
+								aria-expanded="false"
+								aria-haspopup="true"
+							>
+								Course List
+								<svg class="nav-caret" width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+									<path d="M1 1l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+							</a>
+							<?php
+							// Split sorted programs into two buckets.
+							$enrolling_items = array();
+							$coming_items    = array();
+							foreach ( $nav_programs as $np ) {
+								$np_status = get_post_meta( $np->ID, '_aire_status', true ) ?: 'enrolling';
+								if ( 'coming_soon' === $np_status ) {
+									$coming_items[] = $np;
+								} else {
+									$enrolling_items[] = $np;
+								}
+							}
+							if ( ! empty( $enrolling_items ) || ! empty( $coming_items ) ) :
+								?>
+								<ul class="nav-dropdown" role="menu">
+									<?php if ( ! empty( $enrolling_items ) ) : ?>
+										<li role="none" class="nav-dropdown-label">Now enrolling</li>
+										<?php foreach ( $enrolling_items as $np ) : ?>
+											<li role="none">
+												<a href="<?php echo esc_url( get_permalink( $np->ID ) ); ?>" role="menuitem"><?php echo esc_html( $np->post_title ); ?></a>
+											</li>
+										<?php endforeach; ?>
+									<?php endif; ?>
+
+									<?php if ( ! empty( $coming_items ) ) : ?>
+										<?php if ( ! empty( $enrolling_items ) ) : ?>
+											<li role="none" class="nav-dropdown-divider"></li>
+										<?php endif; ?>
+										<li role="none" class="nav-dropdown-label">Future programs</li>
+										<?php foreach ( $coming_items as $np ) : ?>
+											<li role="none">
+												<a href="<?php echo esc_url( get_permalink( $np->ID ) ); ?>" role="menuitem"><?php echo esc_html( $np->post_title ); ?></a>
+											</li>
+										<?php endforeach; ?>
+									<?php endif; ?>
+
+									<li role="none" class="nav-dropdown-divider"></li>
+									<li role="none">
+										<a href="<?php echo esc_url( home_url( '/programs/' ) ); ?>" role="menuitem" class="nav-dropdown-all">View all programs &rarr;</a>
+									</li>
+								</ul>
+							<?php endif; ?>
+						</li>
+						<li><a href="<?php echo esc_url( home_url( '/catalog/' ) ); ?>">Catalog</a></li>
+					</ul>
+					<?php
 				}
 				?>
 			</nav>

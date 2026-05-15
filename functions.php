@@ -70,6 +70,22 @@ function aire_enqueue_assets() {
 		AIRE_VERSION,
 		true
 	);
+
+	wp_enqueue_script(
+		'aire-program-cards',
+		AIRE_URI . '/assets/js/program-cards.js',
+		array(),
+		AIRE_VERSION,
+		true
+	);
+
+	wp_enqueue_script(
+		'aire-nav',
+		AIRE_URI . '/assets/js/nav.js',
+		array(),
+		AIRE_VERSION,
+		true
+	);
 }
 add_action( 'wp_enqueue_scripts', 'aire_enqueue_assets' );
 

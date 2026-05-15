@@ -1181,7 +1181,422 @@ h1, h2, h3, h4 { font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; }
 }
 
 
-/* ===== 15d. Animations ===== */
+/* ===== 15g. Nav dropdown ===== */
+
+.nav-has-dropdown {
+	position: relative;
+}
+
+.nav-dropdown-trigger {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	cursor: pointer;
+}
+
+.nav-caret {
+	transition: transform 0.2s ease;
+	margin-top: 1px;
+}
+
+.nav-dropdown {
+	position: absolute;
+	top: calc(100% + 8px);
+	left: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+	min-width: 240px;
+	background: white;
+	border: 0.5px solid var(--neutral-200);
+	border-radius: 10px;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+	padding: 6px;
+	margin: 0;
+	list-style: none;
+	font-size: 13px;
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(-6px);
+	transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+	z-index: 50;
+}
+
+.nav-dropdown li {
+	margin: 0;
+	width: 100%;
+}
+
+.nav-dropdown a {
+	display: block;
+	padding: 6px 10px;
+	font-size: 13px;
+	color: var(--neutral-700);
+	border-radius: 5px;
+	text-decoration: none;
+	transition: background 0.15s ease, color 0.15s ease;
+	line-height: 1.3;
+}
+
+.nav-dropdown a:hover {
+	background: var(--blue-soft);
+	color: var(--blue-dark);
+}
+
+.nav-dropdown-divider {
+	height: 0.5px;
+	background: var(--neutral-200);
+	margin: 4px 6px;
+}
+
+.nav-dropdown-label {
+	font-size: 10px;
+	font-weight: 500;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--neutral-500);
+	padding: 6px 10px 2px;
+	pointer-events: none;
+}
+
+.nav-dropdown-all {
+	font-weight: 500;
+	color: var(--blue) !important;
+	font-size: 12px !important;
+}
+
+/* Open state — hover on desktop, .is-open class on touch/click */
+@media (hover: hover) and (pointer: fine) {
+	.nav-has-dropdown:hover .nav-dropdown,
+	.nav-has-dropdown:focus-within .nav-dropdown {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0);
+	}
+	.nav-has-dropdown:hover .nav-caret,
+	.nav-has-dropdown:focus-within .nav-caret {
+		transform: rotate(180deg);
+	}
+}
+
+.nav-has-dropdown.is-open .nav-dropdown {
+	opacity: 1;
+	visibility: visible;
+	transform: translateY(0);
+}
+.nav-has-dropdown.is-open .nav-caret {
+	transform: rotate(180deg);
+}
+
+
+
+.archive-grid-section {
+	padding: 32px 0 80px;
+	background: white;
+}
+
+.archive-card-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 24px;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.archive-card {
+	background: white;
+	border-radius: 14px;
+	overflow: hidden;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.05);
+	display: flex;
+	flex-direction: column;
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.archive-card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06), 0 16px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Banner — colored header strip */
+.archive-card-banner {
+	min-height: 140px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 24px;
+	text-align: center;
+}
+.archive-card-banner-text {
+	font-size: 18px;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+/* Banner: filled (light blue background, dark blue text — like AIRE pills) */
+.archive-card-banner-filled .archive-card-banner {
+	background: var(--blue-soft);
+}
+.archive-card-banner-filled .archive-card-banner-text {
+	color: var(--blue-dark);
+}
+
+/* Banner: dark (deep blue, white text — primary brand) */
+.archive-card-banner-dark .archive-card-banner {
+	background: var(--blue-dark);
+}
+.archive-card-banner-dark .archive-card-banner-text {
+	color: white;
+}
+
+/* Red accent variant — overrides for programs with accent=red */
+.archive-card-accent-red.archive-card-banner-filled .archive-card-banner {
+	background: rgba(169, 42, 42, 0.08);
+}
+.archive-card-accent-red.archive-card-banner-filled .archive-card-banner-text {
+	color: var(--red);
+}
+.archive-card-accent-red.archive-card-banner-dark .archive-card-banner {
+	background: var(--red);
+}
+
+/* Card body */
+.archive-card-body {
+	padding: 24px 24px 28px;
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+}
+
+.archive-card-pill {
+	display: inline-block;
+	align-self: flex-start;
+	font-size: 11px;
+	font-weight: 500;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	padding: 5px 10px;
+	border-radius: 999px;
+	margin-bottom: 12px;
+}
+.archive-card-pill.is-enrolling {
+	background: var(--blue-dark);
+	color: white;
+}
+.archive-card-pill.is-coming {
+	background: var(--neutral-200);
+	color: var(--neutral-600);
+}
+
+.archive-card-title {
+	font-size: 19px;
+	font-weight: 600;
+	color: var(--ink);
+	margin: 0 0 10px;
+	letter-spacing: -0.01em;
+	line-height: 1.3;
+}
+
+.archive-card-tagline {
+	font-size: 14px;
+	color: var(--neutral-600);
+	line-height: 1.6;
+	margin: 0 0 20px;
+	flex: 1;
+}
+
+.archive-card-cta {
+	display: inline-block;
+	text-align: center;
+	background: var(--blue);
+	color: white;
+	padding: 12px 20px;
+	border-radius: 8px;
+	font-weight: 500;
+	font-size: 14px;
+	text-decoration: none;
+	transition: background 0.2s ease, transform 0.15s ease;
+	margin-top: auto;
+}
+.archive-card-cta:hover {
+	background: var(--blue-dark);
+	transform: translateY(-1px);
+}
+
+
+
+/* Centered hero */
+.program-hero-centered {
+	text-align: center;
+	padding: 56px 0 40px;
+}
+.program-hero-centered .program-tags {
+	justify-content: center;
+}
+.program-hero-centered .program-h1 {
+	font-size: 40px;
+	letter-spacing: -0.02em;
+	color: var(--ink);
+	margin-bottom: 12px;
+}
+.program-hero-centered .program-lede {
+	font-size: 17px;
+	color: var(--neutral-600);
+	max-width: 680px;
+	margin: 0 auto 24px;
+	line-height: 1.6;
+}
+.program-stats-centered {
+	justify-content: center;
+	margin: 24px 0;
+	display: flex;
+	gap: 40px;
+	flex-wrap: wrap;
+}
+.program-hero-cta {
+	display: flex;
+	gap: 12px;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin-top: 12px;
+}
+
+/* Card grid layout */
+.program-content-carded { padding: 0; }
+.program-card-grid {
+	display: grid;
+	grid-template-columns: 360px 1fr;
+	gap: 32px;
+	align-items: start;
+	margin: 0 auto;
+	max-width: 1100px;
+}
+.program-card-col {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+/* Cards — base styling */
+.program-card {
+	background: white;
+	border: 0.5px solid var(--neutral-200);
+	border-radius: 14px;
+	padding: 28px;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.program-card h2,
+.program-card h3 {
+	font-size: 18px;
+	font-weight: 600;
+	color: var(--blue);
+	margin: 0 0 14px;
+	padding-bottom: 10px;
+	border-bottom: 2px solid var(--blue-soft);
+	letter-spacing: -0.01em;
+}
+.program-card p,
+.program-card ul,
+.program-card ol {
+	color: var(--neutral-700);
+	font-size: 14.5px;
+	line-height: 1.65;
+	margin: 0 0 10px;
+}
+.program-card ul,
+.program-card ol {
+	padding-left: 18px;
+}
+.program-card li {
+	margin-bottom: 6px;
+}
+.program-card > *:last-child {
+	margin-bottom: 0;
+}
+
+/* Left column — accent card (first one, navy/blue treatment) */
+.program-card-accent {
+	background: var(--blue-dark);
+	border-color: var(--blue-dark);
+	color: white;
+}
+.program-card-accent h2,
+.program-card-accent h3 {
+	color: white;
+	border-bottom-color: rgba(255, 255, 255, 0.25);
+}
+.program-card-accent p,
+.program-card-accent ul,
+.program-card-accent ol,
+.program-card-accent li {
+	color: rgba(255, 255, 255, 0.9);
+}
+
+/* Left column — outlined card (last one, accent border) */
+.program-card-outlined {
+	background: white;
+	border: 1.5px solid var(--blue);
+}
+.program-card-outlined h2,
+.program-card-outlined h3 {
+	border-bottom-color: var(--blue);
+}
+
+/* Right column — two-column list inside Skills card */
+.program-card-right ul {
+	column-count: 2;
+	column-gap: 24px;
+	list-style: none;
+	padding-left: 0;
+}
+.program-card-right ul li {
+	break-inside: avoid;
+	font-size: 14px;
+	color: var(--neutral-700);
+	padding: 4px 0;
+}
+.program-card-right ol {
+	column-count: 2;
+	column-gap: 24px;
+}
+
+/* Enrollment card at bottom — full-width callout */
+.program-enrollment-cta {
+	padding: 40px 0 80px;
+}
+.enrollment-card {
+	background: var(--paper);
+	border: 0.5px solid var(--neutral-200);
+	border-radius: 14px;
+	padding: 36px;
+	text-align: center;
+	max-width: 700px;
+	margin: 0 auto;
+}
+.enrollment-card h2 {
+	font-size: 24px;
+	font-weight: 500;
+	color: var(--ink);
+	margin-bottom: 10px;
+	letter-spacing: -0.01em;
+}
+.enrollment-card p {
+	font-size: 15px;
+	color: var(--neutral-600);
+	margin-bottom: 20px;
+	max-width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	line-height: 1.6;
+}
+
+/* Hover polish */
+.program-card:not(.program-card-accent):hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+}
+
+
 
 /* Keyframes */
 @keyframes aire-fade-up {
@@ -1320,6 +1735,11 @@ h1, h2, h3, h4 { font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; }
 	.program-sidebar { position: static; }
 	.archive-row { grid-template-columns: 1fr; gap: 12px; }
 	.catalog-grid { grid-template-columns: 1fr; gap: 32px; }
+	.program-card-grid { grid-template-columns: 1fr; }
+	.program-card-right ul,
+	.program-card-right ol { column-count: 1; }
+	.program-hero-centered .program-h1 { font-size: 32px; }
+	.archive-card-grid { grid-template-columns: repeat(2, 1fr); }
 	.catalog-toc {
 		position: static;
 		max-height: none;
@@ -1369,6 +1789,16 @@ h1, h2, h3, h4 { font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; }
 	.checkout-row-2,
 	.checkout-row-3 { grid-template-columns: 1fr; }
 	.checkout-form { padding: 20px; }
+	.archive-card-grid { grid-template-columns: 1fr; }
+	.nav-dropdown {
+		position: static;
+		min-width: 0;
+		box-shadow: none;
+		border: 0;
+		padding: 4px 0 8px 16px;
+		border-left: 2px solid var(--neutral-200);
+		margin: 4px 0 4px 8px;
+	}
 }
 
 @media (max-width: 480px) {
