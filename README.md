@@ -6,6 +6,8 @@ Hand-built, no page builder dependency. Designed to be edited in VS Code and dep
 
 > **Status: work in progress.** The current AI Roboto Edu website is being actively rebuilt with this theme. Expect ongoing changes to templates, content, and styling.
 
+**Live site:** [airobotoedu.com](https://airobotoedu.com)
+
 ## Preview
 
 The theme includes:
@@ -48,7 +50,7 @@ At minimum, you'll want to:
 2. Create a **Cart** page (slug: `cart`, template: "Cart")
 3. Create a **Checkout** page (slug: `checkout`, template: "Checkout")
 4. Set **Settings → Reading → Front page** to a static page
-5. Create one **Program** post per certificate (Advanced Robotics, Autonomous Driving, Electric Vehicle, ML & AI) with the meta fields from `SEED_DATA.md`
+5. Create one **Program** post per certificate or certification (e.g. EV Charger Certification, Robotics & Automation Machine Operator, AI & Machine Learning Developer, EV & Clean Energy Technician, EV Technician Program, Data Center Technician) with the meta fields from `SEED_DATA.md`. Use the "External" CTA type for programs that route to an outside enrollment form.
 6. Set permalinks to **Post name** under **Settings → Permalinks**
 
 ## File structure
