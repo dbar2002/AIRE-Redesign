@@ -2,8 +2,7 @@
 /**
  * Programs archive template (/programs/).
  *
- * Card grid layout — each program is a card with a colored banner header,
- * status pill, title, tagline, and CTA button.
+ * Lists all four programs in a row layout, more detailed than the homepage cards.
  */
 
 get_header();
@@ -16,75 +15,47 @@ get_header();
 		<p class="archive-lede">
 			<?php
 			$count = wp_count_posts( 'aire_program' )->publish;
-			echo esc_html( $count . ' program' . ( $count === '1' ? '' : 's' ) . ' &middot; 100% online &middot; project-based learning' );
+			echo esc_html( $count . ' certificate program' . ( $count === '1' ? '' : 's' ) . ' · 10 weeks each · 100% online' );
 			?>
 		</p>
 	</div>
 </section>
 
-<section class="archive-grid-section">
+<section class="archive-list">
 	<div class="container">
 		<?php
-		// Fetch all programs, then sort: alphabetical by title, with coming_soon at the end.
-		$programs = get_posts( array(
-			'post_type'      => 'aire_program',
-			'posts_per_page' => -1,
-			'orderby'        => 'title',
-			'order'          => 'ASC',
-		) );
-
-		usort( $programs, function( $a, $b ) {
-			$status_a = get_post_meta( $a->ID, '_aire_status', true ) ?: 'enrolling';
-			$status_b = get_post_meta( $b->ID, '_aire_status', true ) ?: 'enrolling';
-			$coming_a = ( 'coming_soon' === $status_a ) ? 1 : 0;
-			$coming_b = ( 'coming_soon' === $status_b ) ? 1 : 0;
-			if ( $coming_a !== $coming_b ) {
-				return $coming_a - $coming_b; // coming_soon (1) goes after enrolling (0)
-			}
-			return strcasecmp( $a->post_title, $b->post_title );
-		} );
-
-		if ( ! empty( $programs ) ) :
-			$index = 0;
-			?>
-			<div class="archive-card-grid">
-			<?php
-			foreach ( $programs as $program ) :
-				setup_postdata( $GLOBALS['post'] = $program );
-				$short_code   = get_post_meta( $program->ID, '_aire_short_code', true );
-				$tagline      = get_post_meta( $program->ID, '_aire_tagline', true );
-				$accent       = get_post_meta( $program->ID, '_aire_accent', true ) ?: 'blue';
-				$cta_type     = get_post_meta( $program->ID, '_aire_cta_type', true ) ?: 'cart';
-				$status       = get_post_meta( $program->ID, '_aire_status', true ) ?: 'enrolling';
-				$is_coming    = ( 'coming_soon' === $status );
-
-				// Alternate banner style: even indexes get filled, odd get dark.
-				$banner_style = ( $index % 2 === 0 ) ? 'filled' : 'dark';
-				$index++;
+		if ( have_posts() ) :
+			while ( have_posts() ) :
+				the_post();
+				$short_code  = get_post_meta( get_the_ID(), '_aire_short_code', true );
+				$clock_hours = get_post_meta( get_the_ID(), '_aire_clock_hours', true );
+				$weeks       = get_post_meta( get_the_ID(), '_aire_weeks', true );
+				$tuition     = get_post_meta( get_the_ID(), '_aire_tuition', true );
+				$soc_code    = get_post_meta( get_the_ID(), '_aire_soc_code', true );
+				$tagline     = get_post_meta( get_the_ID(), '_aire_tagline', true );
 				?>
-				<article class="archive-card archive-card-banner-<?php echo esc_attr( $banner_style ); ?> archive-card-accent-<?php echo esc_attr( $accent ); ?>">
-					<div class="archive-card-banner">
-						<span class="archive-card-banner-text"><?php echo esc_html( $short_code ); ?></span>
+				<a class="archive-row" href="<?php the_permalink(); ?>">
+					<div class="archive-row-main">
+						<div class="archive-row-meta"><?php echo esc_html( $short_code ); ?> &middot; SOC <?php echo esc_html( $soc_code ); ?></div>
+						<div class="archive-row-title"><?php the_title(); ?></div>
+						<div class="archive-row-tagline"><?php echo esc_html( $tagline ); ?></div>
 					</div>
-					<div class="archive-card-body">
-						<span class="archive-card-pill <?php echo $is_coming ? 'is-coming' : 'is-enrolling'; ?>">
-							<?php echo $is_coming ? 'Coming soon' : 'Now enrolling'; ?>
-						</span>
-						<h3 class="archive-card-title"><?php the_title(); ?></h3>
-						<?php if ( $tagline ) : ?>
-							<p class="archive-card-tagline"><?php echo esc_html( $tagline ); ?></p>
-						<?php endif; ?>
-						<a href="<?php the_permalink(); ?>" class="archive-card-cta">
-							View program details &rarr;
-						</a>
+					<div class="archive-row-cell">
+						<div class="cell-label">Tuition</div>
+						<div class="cell-value"><?php echo esc_html( aire_format_tuition( $tuition ) ); ?></div>
 					</div>
-				</article>
+					<div class="archive-row-cell">
+						<div class="cell-label">Hours</div>
+						<div class="cell-value"><?php echo esc_html( $clock_hours ); ?></div>
+					</div>
+					<div class="archive-row-cell">
+						<div class="cell-label">Duration</div>
+						<div class="cell-value"><?php echo esc_html( $weeks ); ?> weeks</div>
+					</div>
+					<span class="archive-row-link">View &rarr;</span>
+				</a>
 				<?php
-			endforeach;
-			wp_reset_postdata();
-			?>
-			</div>
-			<?php
+			endwhile;
 		else :
 			?>
 			<p>No programs found. Add programs at <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=aire_program' ) ); ?>">Programs &rarr; Add new</a>.</p>

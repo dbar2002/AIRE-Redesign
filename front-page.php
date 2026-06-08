@@ -18,10 +18,7 @@ get_header();
 
 <!-- ===== HERO ===== -->
 <section class="hero">
-	<svg class="hero-shield" viewBox="0 0 100 100" aria-hidden="true">
-		<path d="M50 8 L88 22 L88 50 C88 72 70 88 50 94 L50 8 Z" fill="#A92A2A"/>
-		<path d="M50 8 L12 22 L12 50 C12 72 30 88 50 94 L50 8 Z" fill="#1556B0"/>
-	</svg>
+	<img class="hero-shield" src="<?php echo esc_url( AIRE_URI . '/assets/img/logo.png' ); ?>" alt="" aria-hidden="true" />
 	<div class="container hero-inner">
 		<div class="hero-eyebrow">Advance your career</div>
 		<h1 class="hero-h1">Gain skills. Get certified.<br /><span class="accent">Build the future.</span></h1>

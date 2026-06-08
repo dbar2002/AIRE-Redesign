@@ -15,17 +15,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Register the Programs custom post type.
  *
  * Each program is a single post with these meta fields:
- *   _aire_short_code     - "EV", "AV", "ML/AI", "ROBOTICS", "EVSE"
- *   _aire_clock_hours    - integer
- *   _aire_weeks          - integer
- *   _aire_tuition        - integer (dollars); leave 0 for "contact for pricing" programs
- *   _aire_soc_code       - "11-3021"
- *   _aire_accent         - "blue" | "red"
- *   _aire_tagline        - one-sentence description for cards
- *   _aire_cta_type       - "cart" (default, internal cart flow) | "external" (e.g. external Get in Touch form)
- *   _aire_external_url   - destination URL used when _aire_cta_type is "external"
- *   _aire_cta_label      - button label, defaults to "Get in Touch" for external, "Add to cart" for cart
- *   _aire_status         - "enrolling" (default) | "coming_soon" — controls the archive card pill
+ *   _aire_short_code   - "EV", "AV", "ML/AI", "ROBOTICS"
+ *   _aire_clock_hours  - integer
+ *   _aire_weeks        - integer
+ *   _aire_tuition      - integer (dollars)
+ *   _aire_soc_code     - "11-3021"
+ *   _aire_accent       - "blue" | "red"
+ *   _aire_tagline      - one-sentence description for cards
  */
 function aire_register_program_post_type() {
 	$labels = array(
@@ -76,17 +72,13 @@ add_action( 'add_meta_boxes', 'aire_add_program_meta_box' );
 function aire_render_program_meta_box( $post ) {
 	wp_nonce_field( 'aire_save_program_meta', 'aire_program_meta_nonce' );
 
-	$short_code   = get_post_meta( $post->ID, '_aire_short_code', true );
-	$clock_hours  = get_post_meta( $post->ID, '_aire_clock_hours', true );
-	$weeks        = get_post_meta( $post->ID, '_aire_weeks', true );
-	$tuition      = get_post_meta( $post->ID, '_aire_tuition', true );
-	$soc_code     = get_post_meta( $post->ID, '_aire_soc_code', true );
-	$accent       = get_post_meta( $post->ID, '_aire_accent', true );
-	$tagline      = get_post_meta( $post->ID, '_aire_tagline', true );
-	$cta_type     = get_post_meta( $post->ID, '_aire_cta_type', true ) ?: 'cart';
-	$external_url = get_post_meta( $post->ID, '_aire_external_url', true );
-	$cta_label    = get_post_meta( $post->ID, '_aire_cta_label', true );
-	$status       = get_post_meta( $post->ID, '_aire_status', true ) ?: 'enrolling';
+	$short_code  = get_post_meta( $post->ID, '_aire_short_code', true );
+	$clock_hours = get_post_meta( $post->ID, '_aire_clock_hours', true );
+	$weeks       = get_post_meta( $post->ID, '_aire_weeks', true );
+	$tuition     = get_post_meta( $post->ID, '_aire_tuition', true );
+	$soc_code    = get_post_meta( $post->ID, '_aire_soc_code', true );
+	$accent      = get_post_meta( $post->ID, '_aire_accent', true );
+	$tagline     = get_post_meta( $post->ID, '_aire_tagline', true );
 
 	?>
 	<style>
@@ -122,36 +114,6 @@ function aire_render_program_meta_box( $post ) {
 
 		<label for="aire_tagline">Tagline (one sentence)</label>
 		<textarea id="aire_tagline" name="aire_tagline" rows="2"><?php echo esc_textarea( $tagline ); ?></textarea>
-
-		<label for="aire_cta_type">CTA type</label>
-		<div>
-			<select id="aire_cta_type" name="aire_cta_type">
-				<option value="cart" <?php selected( $cta_type, 'cart' ); ?>>Cart (internal — Add to cart + Start application)</option>
-				<option value="external" <?php selected( $cta_type, 'external' ); ?>>External (Get in Touch link to outside form)</option>
-			</select>
-			<div class="aire-meta-help">Choose "External" for certification prep programs that route to an outside enrollment form. Hides tuition stats and the cart button.</div>
-		</div>
-
-		<label for="aire_external_url">External URL</label>
-		<div>
-			<input type="url" id="aire_external_url" name="aire_external_url" value="<?php echo esc_attr( $external_url ); ?>" placeholder="https://..." />
-			<div class="aire-meta-help">Only used when CTA type is "External".</div>
-		</div>
-
-		<label for="aire_cta_label">CTA button label</label>
-		<div>
-			<input type="text" id="aire_cta_label" name="aire_cta_label" value="<?php echo esc_attr( $cta_label ); ?>" placeholder="Get in Touch" />
-			<div class="aire-meta-help">Optional. Defaults to "Get in Touch" for external programs, "Add to cart" for cart programs.</div>
-		</div>
-
-		<label for="aire_status">Program status</label>
-		<div>
-			<select id="aire_status" name="aire_status">
-				<option value="enrolling" <?php selected( $status, 'enrolling' ); ?>>Now enrolling</option>
-				<option value="coming_soon" <?php selected( $status, 'coming_soon' ); ?>>Coming soon</option>
-			</select>
-			<div class="aire-meta-help">Shown as a pill on the programs archive card.</div>
-		</div>
 	</div>
 	<?php
 }
@@ -174,28 +136,18 @@ function aire_save_program_meta( $post_id ) {
 	}
 
 	$fields = array(
-		'aire_short_code'    => '_aire_short_code',
-		'aire_clock_hours'   => '_aire_clock_hours',
-		'aire_weeks'         => '_aire_weeks',
-		'aire_tuition'       => '_aire_tuition',
-		'aire_soc_code'      => '_aire_soc_code',
-		'aire_accent'        => '_aire_accent',
-		'aire_tagline'       => '_aire_tagline',
-		'aire_cta_type'      => '_aire_cta_type',
-		'aire_external_url'  => '_aire_external_url',
-		'aire_cta_label'     => '_aire_cta_label',
-		'aire_status'        => '_aire_status',
+		'aire_short_code'  => '_aire_short_code',
+		'aire_clock_hours' => '_aire_clock_hours',
+		'aire_weeks'       => '_aire_weeks',
+		'aire_tuition'     => '_aire_tuition',
+		'aire_soc_code'    => '_aire_soc_code',
+		'aire_accent'      => '_aire_accent',
+		'aire_tagline'     => '_aire_tagline',
 	);
 
 	foreach ( $fields as $field => $meta_key ) {
 		if ( isset( $_POST[ $field ] ) ) {
-			$value = wp_unslash( $_POST[ $field ] );
-			if ( 'aire_external_url' === $field ) {
-				$value = esc_url_raw( $value );
-			} else {
-				$value = sanitize_text_field( $value );
-			}
-			update_post_meta( $post_id, $meta_key, $value );
+			update_post_meta( $post_id, $meta_key, sanitize_text_field( wp_unslash( $_POST[ $field ] ) ) );
 		}
 	}
 }

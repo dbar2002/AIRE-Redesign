@@ -14,10 +14,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function aire_shield_logo( $size = 22 ) {
 	?>
-	<svg width="<?php echo intval( $size ); ?>" height="<?php echo intval( $size ); ?>" viewBox="0 0 100 100" aria-label="AI Roboto Edu">
-		<path d="M50 8 L88 22 L88 50 C88 72 70 88 50 94 L50 8 Z" fill="#A92A2A"/>
-		<path d="M50 8 L12 22 L12 50 C12 72 30 88 50 94 L50 8 Z" fill="#1556B0"/>
-	</svg>
+	<img
+		src="<?php echo esc_url( AIRE_URI . '/assets/img/logo.png' ); ?>"
+		width="<?php echo intval( $size ); ?>"
+		height="<?php echo intval( $size ); ?>"
+		alt="AI Roboto Edu"
+		decoding="async"
+	/>
 	<?php
 }
 

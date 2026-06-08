@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'AIRE_VERSION', '1.0.0' );
+define( 'AIRE_VERSION', '1.0.1' );
 define( 'AIRE_DIR', get_template_directory() );
 define( 'AIRE_URI', get_template_directory_uri() );
 
@@ -66,22 +66,6 @@ function aire_enqueue_assets() {
 	wp_enqueue_script(
 		'aire-animations',
 		AIRE_URI . '/assets/js/animations.js',
-		array(),
-		AIRE_VERSION,
-		true
-	);
-
-	wp_enqueue_script(
-		'aire-program-cards',
-		AIRE_URI . '/assets/js/program-cards.js',
-		array(),
-		AIRE_VERSION,
-		true
-	);
-
-	wp_enqueue_script(
-		'aire-nav',
-		AIRE_URI . '/assets/js/nav.js',
 		array(),
 		AIRE_VERSION,
 		true
