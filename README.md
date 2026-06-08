@@ -1,5 +1,7 @@
 # AIRE Redesign
 
+**Live site:** [airobotoedu.com](https://airobotoedu.com)
+
 A custom WordPress theme for **AI Roboto EDU** — a BPPE-approved online certificate school offering programs in artificial intelligence, robotics, autonomous driving, and electric vehicles.
 
 Hand-built, no page builder dependency. Designed to be edited in VS Code and deployed to any WordPress install.
