@@ -22,6 +22,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  *   _aire_soc_code     - "11-3021"
  *   _aire_accent       - "blue" | "red"
  *   _aire_tagline      - one-sentence description for cards
+ *   _aire_status       - "enrolling" | "coming_soon"
+ *   _aire_start_date   - "YYYY-MM-DD" next cohort start date
  */
 function aire_register_program_post_type() {
 	$labels = array(
@@ -79,6 +81,8 @@ function aire_render_program_meta_box( $post ) {
 	$soc_code    = get_post_meta( $post->ID, '_aire_soc_code', true );
 	$accent      = get_post_meta( $post->ID, '_aire_accent', true );
 	$tagline     = get_post_meta( $post->ID, '_aire_tagline', true );
+	$status      = get_post_meta( $post->ID, '_aire_status', true ) ?: 'enrolling';
+	$start_date  = get_post_meta( $post->ID, '_aire_start_date', true );
 
 	?>
 	<style>
@@ -88,6 +92,21 @@ function aire_render_program_meta_box( $post ) {
 		.aire-meta-help { font-size: 12px; color: #666; margin-top: 4px; }
 	</style>
 	<div class="aire-meta-grid">
+		<label for="aire_status">Enrollment status</label>
+		<div>
+			<select id="aire_status" name="aire_status">
+				<option value="enrolling" <?php selected( $status, 'enrolling' ); ?>>Enrolling now</option>
+				<option value="coming_soon" <?php selected( $status, 'coming_soon' ); ?>>Coming soon</option>
+			</select>
+			<div class="aire-meta-help">Controls the badge on program cards and whether the program can be added to cart.</div>
+		</div>
+
+		<label for="aire_start_date">Next cohort start date</label>
+		<div>
+			<input type="date" id="aire_start_date" name="aire_start_date" value="<?php echo esc_attr( $start_date ); ?>" />
+			<div class="aire-meta-help">Shown in the &ldquo;Next cohort&rdquo; box on the program page. Leave blank to hide the date.</div>
+		</div>
+
 		<label for="aire_short_code">Short code</label>
 		<div>
 			<input type="text" id="aire_short_code" name="aire_short_code" value="<?php echo esc_attr( $short_code ); ?>" placeholder="EV / AV / ML/AI / ROBOTICS" />
@@ -143,6 +162,8 @@ function aire_save_program_meta( $post_id ) {
 		'aire_soc_code'    => '_aire_soc_code',
 		'aire_accent'      => '_aire_accent',
 		'aire_tagline'     => '_aire_tagline',
+		'aire_status'      => '_aire_status',
+		'aire_start_date'  => '_aire_start_date',
 	);
 
 	foreach ( $fields as $field => $meta_key ) {

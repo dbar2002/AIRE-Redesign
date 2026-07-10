@@ -151,6 +151,11 @@ h1, h2, h3, h4 { font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; }
 	letter-spacing: 0.02em;
 	color: var(--blue);
 }
+.logo-text {
+	display: flex;
+	flex-direction: column;
+	line-height: 1.1;
+}
 .nav .nav-list,
 .nav ul {
 	display: flex;
@@ -349,6 +354,34 @@ h1, h2, h3, h4 { font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; }
 .career-price { font-size: 18px; font-weight: 500; }
 .career-link { font-size: 13px; color: var(--blue); font-weight: 500; }
 
+/* Enrollment status badge */
+.career-badge {
+	position: absolute;
+	top: 16px;
+	right: 16px;
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	padding: 4px 10px;
+	border-radius: 999px;
+	line-height: 1.4;
+	white-space: nowrap;
+}
+.career-badge-enrolling {
+	background: var(--blue-soft);
+	color: var(--blue-dark);
+}
+.career-badge-coming_soon {
+	background: #f0f0ee;
+	color: var(--neutral-500);
+}
+/* Dim coming-soon cards slightly so enrolling programs stand out */
+.career-card.status-coming_soon .career-title,
+.career-card.status-coming_soon .career-price {
+	color: var(--neutral-500);
+}
+
 /* ===== 9. Government partnership ===== */
 .gov { padding: 80px 0; background: white; }
 .gov-grid {
@@ -493,6 +526,16 @@ h1, h2, h3, h4 { font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; }
 .footer-col ul { list-style: none; }
 .footer-col li { margin-bottom: 6px; }
 .footer-col a:hover { color: white; }
+.footer-group-label {
+	margin-top: 14px;
+	font-size: 10px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: var(--neutral-500);
+}
+.footer-col ul li.footer-group-label:first-child { margin-top: 0; }
+.footer-group-label-soon { color: var(--neutral-600); }
 .footer-bottom {
 	padding-top: 24px;
 	border-top: 0.5px solid var(--ink-2);
@@ -502,6 +545,12 @@ h1, h2, h3, h4 { font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; }
 	gap: 16px;
 	font-size: 12px;
 }
+.footer-legal-links {
+	display: flex;
+	gap: 16px;
+}
+.footer-legal-links a { color: var(--neutral-400); }
+.footer-legal-links a:hover { color: white; }
 .footer-disclaimer {
 	font-size: 11px;
 	color: var(--neutral-500);
@@ -540,6 +589,12 @@ h1, h2, h3, h4 { font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; }
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
 }
+.program-tag-status-coming_soon {
+	background: #f0f0ee;
+	color: var(--neutral-500);
+}
+.archive-row-status-enrolling { color: var(--blue-dark); font-weight: 600; }
+.archive-row-status-coming_soon { color: var(--neutral-500); font-weight: 600; }
 .program-h1 {
 	font-size: 44px;
 	font-weight: 500;

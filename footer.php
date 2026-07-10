@@ -39,8 +39,26 @@
 						'orderby'        => 'menu_order title',
 						'order'          => 'ASC',
 					) );
+					$enrolling = array();
+					$coming    = array();
 					foreach ( $programs as $p ) {
-						echo '<li><a href="' . esc_url( get_permalink( $p ) ) . '">' . esc_html( $p->post_title ) . '</a></li>';
+						if ( aire_is_enrolling( $p->ID ) ) {
+							$enrolling[] = $p;
+						} else {
+							$coming[] = $p;
+						}
+					}
+					if ( $enrolling ) {
+						echo '<li class="footer-group-label">Now enrolling</li>';
+						foreach ( $enrolling as $p ) {
+							echo '<li><a href="' . esc_url( get_permalink( $p ) ) . '">' . esc_html( $p->post_title ) . '</a></li>';
+						}
+					}
+					if ( $coming ) {
+						echo '<li class="footer-group-label footer-group-label-soon">Coming soon</li>';
+						foreach ( $coming as $p ) {
+							echo '<li><a href="' . esc_url( get_permalink( $p ) ) . '">' . esc_html( $p->post_title ) . '</a></li>';
+						}
 					}
 					echo '</ul>';
 				}
@@ -92,6 +110,10 @@
 
 		<div class="footer-bottom">
 			<div>&copy; <?php echo esc_html( date( 'Y' ) ); ?> AI Roboto Edu LLC. All rights reserved.</div>
+			<div class="footer-legal-links">
+				<a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>">Privacy Policy</a>
+				<a href="<?php echo esc_url( home_url( '/terms-of-service/' ) ); ?>">Terms of Service</a>
+			</div>
 		</div>
 
 		<div class="footer-disclaimer">

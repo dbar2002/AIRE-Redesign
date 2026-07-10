@@ -17,6 +17,9 @@ while ( have_posts() ) :
 	$tuition     = get_post_meta( get_the_ID(), '_aire_tuition', true );
 	$soc_code    = get_post_meta( get_the_ID(), '_aire_soc_code', true );
 	$accent      = get_post_meta( get_the_ID(), '_aire_accent', true ) ?: 'blue';
+	$status      = aire_get_status( get_the_ID() );
+	$is_enrolling = aire_is_enrolling( get_the_ID() );
+	$start_date  = get_post_meta( get_the_ID(), '_aire_start_date', true );
 	?>
 
 	<!-- Breadcrumb -->
@@ -37,6 +40,7 @@ while ( have_posts() ) :
 					<?php if ( $soc_code ) : ?>
 						<span class="program-tag-pill">SOC <?php echo esc_html( $soc_code ); ?></span>
 					<?php endif; ?>
+					<span class="program-tag-pill program-tag-status-<?php echo esc_attr( $status ); ?>"><?php echo esc_html( aire_status_label( $status ) ); ?></span>
 				</div>
 				<h1 class="program-h1"><?php the_title(); ?></h1>
 				<div class="program-stats">
@@ -48,22 +52,34 @@ while ( have_posts() ) :
 			</div>
 			<aside class="program-sidebar">
 				<div class="sidebar-eyebrow">Next cohort</div>
-				<div class="sidebar-date">January 15, 2026</div>
+				<?php if ( $start_date ) : ?>
+					<div class="sidebar-date"><?php echo esc_html( date_i18n( 'F j, Y', strtotime( $start_date ) ) ); ?></div>
+				<?php else : ?>
+					<div class="sidebar-date">Applications accepted year-round</div>
+				<?php endif; ?>
 				<div class="sidebar-note">First cohort — applications accepted year-round</div>
-				<button
-					type="button"
-					class="btn btn-primary btn-block"
-					data-add-to-cart
-					data-id="<?php echo esc_attr( get_post_field( 'post_name', get_the_ID() ) ); ?>"
-					data-title="<?php echo esc_attr( get_the_title() ); ?>"
-					data-price="<?php echo esc_attr( (int) $tuition ); ?>"
-				>Add to cart &mdash; <?php echo esc_html( aire_format_tuition( $tuition ) ); ?></button>
-				<a href="<?php echo esc_url( home_url( '/apply/' ) ); ?>" class="btn btn-outline-dark btn-block">Start application &rarr;</a>
-				<div class="sidebar-fineprint">
-					Tuition: <?php echo esc_html( aire_format_tuition( $tuition ) ); ?><br />
-					Interest-free monthly payment plans available<br />
-					No federal financial aid
-				</div>
+				<?php if ( $is_enrolling ) : ?>
+					<button
+						type="button"
+						class="btn btn-primary btn-block"
+						data-add-to-cart
+						data-id="<?php echo esc_attr( get_post_field( 'post_name', get_the_ID() ) ); ?>"
+						data-title="<?php echo esc_attr( get_the_title() ); ?>"
+						data-price="<?php echo esc_attr( (int) $tuition ); ?>"
+					>Add to cart &mdash; <?php echo esc_html( aire_format_tuition( $tuition ) ); ?></button>
+					<a href="<?php echo esc_url( home_url( '/apply/' ) ); ?>" class="btn btn-outline-dark btn-block">Start application &rarr;</a>
+					<div class="sidebar-fineprint">
+						Tuition: <?php echo esc_html( aire_format_tuition( $tuition ) ); ?><br />
+						No federal financial aid
+					</div>
+				<?php else : ?>
+					<button type="button" class="btn btn-primary btn-block" disabled>Coming soon</button>
+					<a href="<?php echo esc_url( home_url( '/#newsletter' ) ); ?>" class="btn btn-outline-dark btn-block">Get notified &rarr;</a>
+					<div class="sidebar-fineprint">
+						This program is not yet open for enrollment.<br />
+						Sign up to be notified when applications open.
+					</div>
+				<?php endif; ?>
 			</aside>
 		</div>
 	</section>

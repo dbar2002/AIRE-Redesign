@@ -109,3 +109,34 @@ function aire_format_tuition( $amount ) {
 	$amount = (int) $amount;
 	return '$' . number_format( $amount );
 }
+
+/**
+ * Get a program's enrollment status.
+ *
+ * @param int $post_id
+ * @return string "enrolling" | "coming_soon"
+ */
+function aire_get_status( $post_id ) {
+	$status = get_post_meta( $post_id, '_aire_status', true );
+	return ( 'coming_soon' === $status ) ? 'coming_soon' : 'enrolling';
+}
+
+/**
+ * Whether a program is open for enrollment (and can be added to cart).
+ *
+ * @param int $post_id
+ * @return bool
+ */
+function aire_is_enrolling( $post_id ) {
+	return 'enrolling' === aire_get_status( $post_id );
+}
+
+/**
+ * Human-readable label for a status.
+ *
+ * @param string $status
+ * @return string
+ */
+function aire_status_label( $status ) {
+	return ( 'coming_soon' === $status ) ? 'Coming soon' : 'Enrolling now';
+}

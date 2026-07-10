@@ -17,7 +17,7 @@ For each program, fill in:
 
 **Meta box fields:**
 - Short code: `EV`
-- Clock hours: `72`
+- Clock hours: `140`
 - Weeks: `10`
 - Tuition: `12000`
 - SOC code: `11-3021`
@@ -122,7 +122,7 @@ Complete all modules and earn the equivalent of a B grade plus a passing rubric 
 
 **Meta box fields:**
 - Short code: `ML/AI`
-- Clock hours: `88`
+- Clock hours: `96`
 - Weeks: `10`
 - Tuition: `8500`
 - SOC code: `11-3021`

@@ -25,7 +25,9 @@
 		<div class="header-flex">
 			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="logo">
 				<?php aire_shield_logo( 28 ); ?>
-				<span>AI Roboto Edu</span>
+				<span class="logo-text">
+					AI Roboto Edu
+				</span>
 			</a>
 			<nav class="nav" aria-label="Primary">
 				<?php

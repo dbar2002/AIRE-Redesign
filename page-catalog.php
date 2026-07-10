@@ -380,10 +380,10 @@ $catalog_phone    = '(909) 833-0666';
 					</thead>
 					<tbody>
 						<tr>
-							<td>Qiangyang Liu</td>
+							<td>Qiangyang (Riven) Liu</td>
 							<td>M.S., Electrical Engineering</td>
 							<td>California State University at Los Angeles</td>
-							<td>Electric Vehicles &amp; Advanced Robotics</td>
+							<td>Electric Vehicles</td>
 						</tr>
 						<tr>
 							<td>Chen Lin</td>
@@ -396,6 +396,12 @@ $catalog_phone    = '(909) 833-0666';
 							<td>Ph.D., Computer &amp; Information Sciences</td>
 							<td>Temple University</td>
 							<td>Artificial Intelligence &amp; Machine Learning</td>
+						</tr>
+						<tr>
+							<td>Hong-Yue (Ray) Tang</td>
+							<td>Ph.D., Mechanical Engineering</td>
+							<td>University of Wisconsin–Madison</td>
+							<td>Advanced Robotics</td>
 						</tr>
 					</tbody>
 				</table>
@@ -460,7 +466,7 @@ $catalog_phone    = '(909) 833-0666';
 				<article class="catalog-program">
 					<h3>Electric Vehicle</h3>
 					<div class="catalog-program-stats">
-						<span><strong>72 clock hours</strong> · 10 weeks</span>
+						<span><strong>140 clock hours</strong> · 10 weeks</span>
 						<span><strong>$12,000</strong> tuition</span>
 						<span>SOC 11-3021</span>
 					</div>
@@ -487,7 +493,7 @@ $catalog_phone    = '(909) 833-0666';
 				<article class="catalog-program">
 					<h3>Machine Learning &amp; Artificial Intelligence</h3>
 					<div class="catalog-program-stats">
-						<span><strong>88 clock hours</strong> · 10 weeks</span>
+						<span><strong>96 clock hours</strong> · 10 weeks</span>
 						<span><strong>$8,500</strong> tuition</span>
 						<span>SOC 11-3021</span>
 					</div>

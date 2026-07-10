@@ -7,8 +7,7 @@
  *   2. Two-box (Certificate + Apprenticeship)
  *   3. Choose A Career Path (programs grid, queried from CPT)
  *   4. Government Partnership
- *   5. Before You Apply (disclosures)
- *   6. Newsletter signup
+ *   5. Newsletter signup
  *
  * Header and footer are loaded by get_header() / get_footer().
  */
@@ -22,7 +21,7 @@ get_header();
 	<div class="container hero-inner">
 		<div class="hero-eyebrow">Advance your career</div>
 		<h1 class="hero-h1">Gain skills. Get certified.<br /><span class="accent">Build the future.</span></h1>
-		<p class="hero-sub">Online certificate programs in artificial intelligence and robotics, taught by PhD and Masters faculty. Approved to operate by the California BPPE.</p>
+		<p class="hero-sub">Online certificate programs in AI, Robotics and EV in 10 weeks taught by Industrial Experts. Approved to operate by the California BPPE.</p>
 		<div class="hero-buttons">
 			<a href="<?php echo esc_url( home_url( '/programs/' ) ); ?>" class="btn btn-primary">Explore programs &rarr;</a>
 			<a href="<?php echo esc_url( home_url( '/catalog/' ) ); ?>" class="btn btn-outline">View catalog</a>
@@ -45,7 +44,7 @@ get_header();
 				<div>
 					<div class="box-eyebrow on-dark">Now enrolling</div>
 					<div class="box-h3">Certificate Programs</div>
-					<p class="box-body">Practical, project-based learning across four specialized 10-week programs. Complete a capstone subsystem design, earn an AIRE certificate.</p>
+					<p class="box-body">Practical, project-based learning across specialized 10-week programs. Complete a capstone subsystem design, earn an AIRE certificate.</p>
 				</div>
 				<a href="<?php echo esc_url( home_url( '/programs/' ) ); ?>" class="box-link on-dark">View certificate programs &rarr;</a>
 			</div>
@@ -67,14 +66,14 @@ get_header();
 		<div class="section-head-center">
 			<div class="section-eyebrow">Choose a career path</div>
 			<h2 class="section-h2">Specialize in 10 weeks.</h2>
-			<p class="section-lede">Four certificate programs covering the foundations of AI, robotics, and electrification. Online, project-based, and built around a capstone you can show employers.</p>
+			<p class="section-lede">Certificate programs covering the foundations of AI, robotics, and electrification. Online, project-based, and built around a capstone you can show employers.</p>
 		</div>
 
 		<div class="career-grid" data-reveal-stagger>
 			<?php
 			$programs = new WP_Query( array(
 				'post_type'      => 'aire_program',
-				'posts_per_page' => 4,
+				'posts_per_page' => -1,
 				'orderby'        => 'menu_order title',
 				'order'          => 'ASC',
 			) );
@@ -86,9 +85,11 @@ get_header();
 					$tuition     = get_post_meta( get_the_ID(), '_aire_tuition', true );
 					$accent      = get_post_meta( get_the_ID(), '_aire_accent', true ) ?: 'blue';
 					$tagline     = get_post_meta( get_the_ID(), '_aire_tagline', true );
+					$status      = aire_get_status( get_the_ID() );
 					?>
-					<a class="career-card" href="<?php the_permalink(); ?>">
+					<a class="career-card status-<?php echo esc_attr( $status ); ?>" href="<?php the_permalink(); ?>">
 						<span class="career-accent accent-<?php echo esc_attr( $accent ); ?>"></span>
+						<span class="career-badge career-badge-<?php echo esc_attr( $status ); ?>"><?php echo esc_html( aire_status_label( $status ) ); ?></span>
 						<div>
 							<div class="career-meta"><?php echo esc_html( $short_code ); ?> &middot; <?php echo esc_html( $clock_hours ); ?> hours</div>
 							<div class="career-title"><?php the_title(); ?></div>
@@ -150,24 +151,6 @@ get_header();
 			</div>
 		</div>
 		<div class="gov-disclaimer">Curriculum alignment with federal workforce priorities does not constitute endorsement by any federal agency.</div>
-	</div>
-</section>
-
-<!-- ===== BEFORE YOU APPLY ===== -->
-<section class="disclosures" data-reveal>
-	<div class="container">
-		<div class="section-head-center">
-			<div class="section-eyebrow">Before you apply</div>
-			<h2 class="section-h2" style="font-size: 28px;">Important to know.</h2>
-		</div>
-		<div class="disclose-grid" data-reveal-stagger>
-			<?php foreach ( aire_get_disclosures() as $d ) : ?>
-				<div class="disclose-card">
-					<div class="disclose-title"><?php echo esc_html( $d['title'] ); ?></div>
-					<div class="disclose-body"><?php echo esc_html( $d['body'] ); ?></div>
-				</div>
-			<?php endforeach; ?>
-		</div>
 	</div>
 </section>
 
