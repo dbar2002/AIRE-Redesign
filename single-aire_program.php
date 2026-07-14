@@ -70,7 +70,7 @@ while ( have_posts() ) :
 					<a href="<?php echo esc_url( home_url( '/apply/' ) ); ?>" class="btn btn-outline-dark btn-block">Start application &rarr;</a>
 					<div class="sidebar-fineprint">
 						Tuition: <?php echo esc_html( aire_format_tuition( $tuition ) ); ?><br />
-						No federal financial aid
+						Financial support is available. Free tuition if qualified. Talk to our admission advisors for details.
 					</div>
 				<?php else : ?>
 					<button type="button" class="btn btn-primary btn-block" disabled>Coming soon</button>
@@ -96,7 +96,7 @@ while ( have_posts() ) :
 	<!-- CTA -->
 	<section class="cta-bar">
 		<div class="container cta-bar-inner">
-			<h2>Ready to apply? It takes about 10 minutes.</h2>
+			<h2>Ready to apply? It takes about 2 minutes. Once signed up, we will contact you within 24 hours.</h2>
 			<a href="<?php echo esc_url( home_url( '/apply/' ) ); ?>" class="btn btn-primary">Apply now &rarr;</a>
 		</div>
 	</section>

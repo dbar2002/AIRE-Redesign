@@ -14,8 +14,9 @@ get_header();
 		<h1 class="archive-h1">Find a program that fits your goals.</h1>
 		<p class="archive-lede">
 			<?php
-			$count = wp_count_posts( 'aire_program' )->publish;
-			echo esc_html( $count . ' certificate program' . ( $count === '1' ? '' : 's' ) . ' · 10 weeks each · 100% online' );
+			global $wp_query;
+			$count = (int) $wp_query->found_posts;
+			echo esc_html( $count . ' certificate program' . ( 1 === $count ? '' : 's' ) . ' · 10 weeks each · 100% online' );
 			?>
 		</p>
 	</div>

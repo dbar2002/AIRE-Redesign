@@ -13,7 +13,7 @@
 get_header();
 
 $policy_updated = 'January 1, 2026';
-$policy_email   = 'privacy@airobotoedu.com';
+$policy_email   = 'contact@airobotoedu.com';
 $policy_address = '1275 El Camino Real, Menlo Park, CA 94025';
 ?>
 

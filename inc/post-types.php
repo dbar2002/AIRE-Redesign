@@ -83,6 +83,7 @@ function aire_render_program_meta_box( $post ) {
 	$tagline     = get_post_meta( $post->ID, '_aire_tagline', true );
 	$status      = get_post_meta( $post->ID, '_aire_status', true ) ?: 'enrolling';
 	$start_date  = get_post_meta( $post->ID, '_aire_start_date', true );
+	$hidden      = get_post_meta( $post->ID, '_aire_hidden', true );
 
 	?>
 	<style>
@@ -92,6 +93,15 @@ function aire_render_program_meta_box( $post ) {
 		.aire-meta-help { font-size: 12px; color: #666; margin-top: 4px; }
 	</style>
 	<div class="aire-meta-grid">
+		<label for="aire_hidden">Visibility</label>
+		<div>
+			<label style="font-weight:400;">
+				<input type="checkbox" id="aire_hidden" name="aire_hidden" value="1" <?php checked( $hidden, '1' ); ?> />
+				Hide this program from all listings
+			</label>
+			<div class="aire-meta-help">Removes the program from the homepage, programs archive, and footer. The program stays published and reachable by direct link &mdash; use this to temporarily take a program off the site without deleting it.</div>
+		</div>
+
 		<label for="aire_status">Enrollment status</label>
 		<div>
 			<select id="aire_status" name="aire_status">
@@ -171,5 +181,54 @@ function aire_save_program_meta( $post_id ) {
 			update_post_meta( $post_id, $meta_key, sanitize_text_field( wp_unslash( $_POST[ $field ] ) ) );
 		}
 	}
+
+	// Checkbox: present only when checked, so set or clear explicitly.
+	if ( isset( $_POST['aire_hidden'] ) && '1' === $_POST['aire_hidden'] ) {
+		update_post_meta( $post_id, '_aire_hidden', '1' );
+	} else {
+		delete_post_meta( $post_id, '_aire_hidden' );
+	}
 }
 add_action( 'save_post_aire_program', 'aire_save_program_meta' );
+
+/**
+ * Reusable meta_query clause that excludes hidden programs.
+ *
+ * Matches programs where _aire_hidden is not set, or not equal to "1".
+ * Used by the front-page and footer custom queries.
+ *
+ * @return array
+ */
+function aire_hidden_meta_query() {
+	return array(
+		'relation' => 'OR',
+		array(
+			'key'     => '_aire_hidden',
+			'compare' => 'NOT EXISTS',
+		),
+		array(
+			'key'     => '_aire_hidden',
+			'value'   => '1',
+			'compare' => '!=',
+		),
+	);
+}
+
+/**
+ * Hide flagged programs from the public programs archive.
+ *
+ * Runs only on the main query for the aire_program archive on the front
+ * end, so the WordPress admin list is unaffected and still shows every
+ * program (including hidden ones).
+ *
+ * @param WP_Query $query
+ */
+function aire_hide_programs_from_archive( $query ) {
+	if ( is_admin() || ! $query->is_main_query() ) {
+		return;
+	}
+	if ( $query->is_post_type_archive( 'aire_program' ) ) {
+		$query->set( 'meta_query', aire_hidden_meta_query() );
+	}
+}
+add_action( 'pre_get_posts', 'aire_hide_programs_from_archive' );

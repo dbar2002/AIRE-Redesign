@@ -38,6 +38,7 @@
 						'posts_per_page' => -1,
 						'orderby'        => 'menu_order title',
 						'order'          => 'ASC',
+						'meta_query'     => aire_hidden_meta_query(),
 					) );
 					$enrolling = array();
 					$coming    = array();
@@ -117,7 +118,7 @@
 		</div>
 
 		<div class="footer-disclaimer">
-			AI Roboto EDU is a private institution approved to operate by the California Bureau for Private Postsecondary Education. Approval to operate does not mean endorsement and does not indicate that the institution exceeds minimum state standards. AI Roboto EDU does not represent that it offers job placement assistance.
+			AI Roboto EDU is a private institution approved to operate by the California Bureau for Private Postsecondary Education. Approval to operate does not mean endorsement and does not indicate that the institution exceeds minimum state standards.
 		</div>
 	</div>
 </footer>

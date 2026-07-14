@@ -76,6 +76,7 @@ get_header();
 				'posts_per_page' => -1,
 				'orderby'        => 'menu_order title',
 				'order'          => 'ASC',
+				'meta_query'     => aire_hidden_meta_query(),
 			) );
 
 			if ( $programs->have_posts() ) :

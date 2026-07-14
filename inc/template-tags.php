@@ -140,3 +140,17 @@ function aire_is_enrolling( $post_id ) {
 function aire_status_label( $status ) {
 	return ( 'coming_soon' === $status ) ? 'Coming soon' : 'Enrolling now';
 }
+
+/**
+ * Whether a program is hidden from public listings.
+ *
+ * Hidden programs are removed from the archive, front page, and footer,
+ * but the post itself stays published and reachable by direct URL. Use
+ * this to temporarily pull a program off the site without deleting it.
+ *
+ * @param int $post_id
+ * @return bool
+ */
+function aire_is_hidden( $post_id ) {
+	return '1' === get_post_meta( $post_id, '_aire_hidden', true );
+}
