@@ -38,7 +38,7 @@ $policy_address = '1275 El Camino Real, Menlo Park, CA 94025';
 <section class="page-body">
 	<div class="container">
 		<div class="page-content">
-			<p><em>Last updated: <?php echo esc_html( $policy_updated ); ?>. This is placeholder text provided as a starting template and should be reviewed by qualified legal counsel before publication.</em></p>
+			<p><em>Last updated: <?php echo esc_html( $policy_updated ); ?>.</em></p>
 
 			<p>This Privacy Policy explains how AI Roboto EDU ("AI Roboto EDU," "we," "us," or "our"), which also does business as Launch Institute of Technology (LIT), collects, uses, and protects information about visitors, applicants, and students who use our websites at airobotoedu.com and related properties (collectively, the "Sites").</p>
 
